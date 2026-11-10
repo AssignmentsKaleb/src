@@ -3,29 +3,32 @@ import java.awt.*;
 import java.awt.image.BufferedImage; 
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Queue;
-import java.util.LinkedList;
+
+
 public class Game extends JPanel  implements Runnable, KeyListener, MouseListener, MouseMotionListener{
 	
 	
 	private BufferedImage back;
 	private int key, counter, score, lives;
+	private char screen;
 	private ArrayList<Characters> displayChars;
-	private String level;
+	private ArrayList<SuperAttack> superAttacks;
+    private ArrayList<SuperAttack> weakenedSuperAttacks;
+	private ImageIcon background;
 	
 
 
-	
 	public Game() {
 		
 		//This is the music
 		Player p = new Player();
 		p.playmusic("track02.wav"); 
 		
-		this.addKeyListener(this);
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		new Thread(this).start();
+		 
+		screen = 'S';
 		
 	}
 	
@@ -81,6 +84,8 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+
+		//mainChar.setX(e.getX());
 	}
 	
 	  
