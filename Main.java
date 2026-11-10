@@ -12,7 +12,7 @@ public class Main extends JFrame{
 		setResizable(false);
 
 		Game play = new Game();
-		getContentPane().add(play);
+		getContentPane().add((Component) play);
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
