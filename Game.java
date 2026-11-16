@@ -57,13 +57,11 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 	  	}
 
 		public void screen(Graphics g2d){
-			if(back==null)
-				back = (BufferedImage)(createImage(getWidth(),getHeight()));
-			Graphics g2 = back.createGraphics();
-			g2.clearRect(0,0,getSize().width, getSize().height);
-		}
-		public void screen(Graphics g2d){
+			
 			switch(screen){
+
+		
+			
 				//if (timer% 10 == 0){ if timer>=2000) g2d.drawString("Fantasy Time", 400, 150);
 				//timer++;
 				//if(timer% 10 == 0)
@@ -96,6 +94,23 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 						g2d.drawString("Score: " + score, 10, 30);
 						g2d.drawString("Lives: " + lives, 10, 60);
 						break;
+
+						case 'W':
+							g2d.drawImage(BackgroundH.getImage(), 0,0, getWidth(), getHeight(), this);
+							g2d.setFont(new Font("Arial", Font.BOLD, 30));
+							g2d.setColor(Color.RED);
+							g2d.drawString("You Win!", getWidth()/2-100, getHeight() / 2 - 100);
+							g2d.drawString("Score: " + score, getWidth()/2-100, getHeight() / 2);
+							break;
+
+						case 'L':	
+	
+							g2d.setFont(new Font("Arial", Font.BOLD, 30));
+							g2d.setColor(Color.RED);
+							g2d.drawString("I'm Defeated Enter!", getWidth()/2-100, getHeight() / 2 - 100);
+							g2d.drawString("Score: " + score, getWidth()/2-100, getHeight() / 2);
+							break;
+
 			}
 		}
 	

@@ -23,10 +23,10 @@ public class Magic{
         }
 
         public boolean coolidesWith(Characters c){
-            return this.x < Characters.getX() + Characters.getWidth() &&
-                    this.x + this.width > Characters.getX() &&
-                    this.y < Characters.getY() + Characters.getHeight() &&
-                    this.y + this.height > Characters.getY();
+            return this.x < c.getX() + c.getW() &&
+                this.x + this.width > c.getX() &&
+                this.y < c.getY() + c.getHeight() &&
+                this.y + this.height > c.getY();
         }
         public int getX() {
             return x;

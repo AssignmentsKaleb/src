@@ -2,7 +2,10 @@ import javax.swing.ImageIcon;
 import java.awt.Graphics;
 public class Characters {
     
-private int x,y,w,h;
+private static int x;
+private int y;
+private int w;
+private int h;
 private int mana, health, speed, damage;
 private ImageIcon pic;
 
@@ -105,6 +108,10 @@ public void drawChar(Graphics g2d){
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+    public static int getHeight() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getHeight'");
     }
     
 }
