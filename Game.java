@@ -15,10 +15,8 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 	private ArrayList <Knife> KnivesPositions;
 	private ArrayList <Magic> MagicPositions;
 	private ArrayList <Healing> HealingPositions;
-	private ImageIcon BackgroundB;
-	private ImageIcon BackgroundS;
 	private ImageIcon BackgroundH;
-	private ImageIcon BackgroundD;
+	
 
 
 	public Game() {
@@ -30,10 +28,9 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		new Thread(this).start();
-		 BackgroundB = new ImageIcon("BackgroundB.png");
-		 BackgroundS = new ImageIcon("BackgroundS.png");
+		
 		 BackgroundH = new ImageIcon("BackgroundH.png");
-		 BackgroundD = new ImageIcon("BackgroundD.png");
+		
 		screen = 'S';
 
 
@@ -71,7 +68,7 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 			
 				
 				case 'S':
-					g2d.drawImage(BackgroundB.getImage(),0,0,null);
+					g2d.drawImage(BackgroundH.getImage(),0,0,null);
 					g2d.setFont(new Font("Arial", Font.BOLD, 30));
 					g2d.setColor(Color.RED);
 					g2d.drawString("Once Upon Fantasy ", getWidth()/2-150, getHeight() / 2 - 100);
@@ -80,11 +77,13 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 
 
 					case 'G':
-						g2d.drawImage(BackgroundB.getImage(), 0,0, getWidth(), getHeight(), this);
+						g2d.drawImage(BackgroundH.getImage(), 0,0, getWidth(), getHeight(), this);
                         counter++;
 						getHealingPositions(g2d);
+						getMagicPositions(g2d);
+						getKnifePositions(g2d);
 
-						drawCharacters(g2d);
+			            drawCharacters(g2d);
 						charactersMove();
 
 						checkCollisions();
@@ -112,8 +111,19 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 							break;
 
 			}
+
 		}
 	
+	private void getMagicPositions(Graphics g2d) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("Unimplemented method 'getMagicPositions'");
+		}
+
+	private void getKnifePositions(Graphics g2d) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("Unimplemented method 'getKnifePositions'");
+		}
+
 	private void checkCollisions() {
 			// TODO Auto-generated method stub
 			throw new UnsupportedOperationException("Unimplemented method 'checkCollisions'");
@@ -189,7 +199,39 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 	
 		
 		g2d.clearRect(0,0,getSize().width, getSize().height);
-		//start coding here
+		screen(g2d);
+		if(screen =='G'){
+			if(counter % 300 == 0){
+				int randX = 10 + (int)(Math.random() * ((getWidth() - 40 )));
+				HealingPositions.add(new Healing(randX));
+			}
+
+			for (int i = 0; i < HealingPositions.size(); i++) {
+				Healing h = HealingPositions.get(i);
+				h.move();
+				g2d.drawImage(h.getPic().getImage(), h.getX(), h.getY(), h.getWidth(), h.getHeight(), null);
+
+				Rectangle hRect = new Rectangle(h.getX(), h.getY(), h.getWidth(), h.getHeight());
+				Rectangle cRect = new Rectangle(h.getX(), h.getY(), h.getWidth(), h.getHeight());
+				if (hRect.intersects(cRect)) {
+					HealingPositions.remove(i);
+					i--;
+					lives++;
+		            lives = Math.min(5, lives + 1); // Increase lives by 1, but not above 5
+					if (lives <= 0){
+						screen = 'L';
+					}
+					else if (h.getY() > getHeight()) {
+						HealingPositions.remove(i);
+						i--;
+					}
+					if (counter % 190 == 0){
+						int randX2 = 10 + (int)(Math.random() * ((getWidth() - 40 )));
+						MagicPositions.add(new Point(randX2, 0));
+					}
+				}
+			}
+		}
 		
 		
 
@@ -203,4 +245,6 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 		
 	}
 	
+}
+
 }

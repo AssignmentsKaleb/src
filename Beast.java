@@ -11,8 +11,9 @@ public class Beast extends Characters{
         super(new ImageIcon("Beast.png"),50,150,35,700,150);
         super.setX(100);
     }
-    public Beast(int x, int y, ImageIcon pic, int range, int attack, int health, int mana){
+    public Beast(int x, int y, ImageIcon pic, int range, int attack, int health, int mana, int height){
         super(x,y,new ImageIcon("Beast.png"),range,attack,health,mana);
+        this.height = height;
     }
     public int getX() {
         return x;

@@ -109,7 +109,7 @@ public void drawChar(Graphics g2d){
     public void setDamage(int damage) {
         this.damage = damage;
     }
-    public static int getHeight() {
+    public int getHeight() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getHeight'");
     }
