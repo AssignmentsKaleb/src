@@ -68,11 +68,11 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 			
 				
 				case 'S':
-					g2d.drawImage(BackgroundH.getImage(),0,0,null);
+					g2d.drawImage(BackgroundH.getImage(), 0, 0, getWidth(), getHeight(), this);
 					g2d.setFont(new Font("Arial", Font.BOLD, 30));
 					g2d.setColor(Color.RED);
 					g2d.drawString("Once Upon Fantasy ", getWidth()/2-150, getHeight() / 2 - 100);
-					g2d.drawString("Enter to Start", getWidth()/2-100, getHeight() / 2);
+					g2d.drawString("Click to Characters", getWidth()/2-100, getHeight() / 2);
 					break;
 
 
@@ -187,64 +187,66 @@ public class Game extends JPanel  implements Runnable, KeyListener, MouseListene
 	}
 	
 	  
-	  public  void paint(Graphics g){
-	  
-		  Graphics2D  twoDgraph= (Graphics2D)g;
-		
-		if(back==null)
-		   back = (BufferedImage)(createImage(getWidth(),getHeight()));
+public void paint(Graphics g) {
+		Graphics2D twoDgraph = (Graphics2D) g;
 
+		if (back == null) {
+			back = (BufferedImage) createImage(getWidth(), getHeight());
+		}
+
+		if (HealingPositions == null) {
+			HealingPositions = new ArrayList<Healing>();
+		}
+		if (MagicPositions == null) {
+			MagicPositions = new ArrayList<Magic>();
+		}
 
 		Graphics g2d = back.createGraphics();
-	
-		
-		g2d.clearRect(0,0,getSize().width, getSize().height);
+		g2d.clearRect(0, 0, getSize().width, getSize().height);
 		screen(g2d);
-		if(screen =='G'){
-			if(counter % 300 == 0){
-				int randX = 10 + (int)(Math.random() * ((getWidth() - 40 )));
+
+		if (screen == 'G') {
+			if (counter % 300 == 0) {
+				int randX = 10 + (int) (Math.random() * (getWidth() - 40));
 				HealingPositions.add(new Healing(randX));
 			}
 
 			for (int i = 0; i < HealingPositions.size(); i++) {
 				Healing h = HealingPositions.get(i);
-				h.move();
 				g2d.drawImage(h.getPic().getImage(), h.getX(), h.getY(), h.getWidth(), h.getHeight(), null);
 
-				Rectangle hRect = new Rectangle(h.getX(), h.getY(), h.getWidth(), h.getHeight());
-				Rectangle cRect = new Rectangle(h.getX(), h.getY(), h.getWidth(), h.getHeight());
-				if (hRect.intersects(cRect)) {
+				if (h.getY() > getHeight()) {
 					HealingPositions.remove(i);
 					i--;
-					lives++;
-		            lives = Math.min(5, lives + 1); // Increase lives by 1, but not above 5
-					if (lives <= 0){
-						screen = 'L';
-					}
-					else if (h.getY() > getHeight()) {
-						HealingPositions.remove(i);
-						i--;
-					}
-					if (counter % 190 == 0){
-						int randX2 = 10 + (int)(Math.random() * ((getWidth() - 40 )));
-						MagicPositions.add(new Point(randX2, 0));
-					}
 				}
 			}
+
+			if (counter % 190 == 0) {
+				int randX = 10 + (int) (Math.random() * (getWidth() - 40));
+				MagicPositions.add(new Magic(randX));
+			}
 		}
-		
-		
 
-
-		//do not delte this line of code, it draws everything above
 		twoDgraph.drawImage(back, null, 0, 0);
-		
-		
-		
-		
-		
 	}
-	
-}
 
+	public void drawHealing(Graphics g2d) {
+		if (HealingPositions == null) {
+			return;
+		}
+		for (Healing h : HealingPositions) {
+			g2d.drawImage(h.getPic().getImage(), h.getX(), h.getY(), h.getWidth(), h.getHeight(), null);
+			h.setDy(2);
+		}
+	}
+
+	public void removeHealing(ArrayList<Healing> healingPositions, int index) {
+		if (index >= 0 && index < healingPositions.size()) {
+			healingPositions.remove(index);
+		}
+	}
 }
+			
+	
+
+	

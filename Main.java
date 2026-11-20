@@ -7,7 +7,7 @@ public class Main extends JFrame{
 	
 	public Main () {
 		super("Fantasy ");
-		setSize(2250, 1200);
+		setSize(2250, 1300);
 		setLocationRelativeTo(null);
 		setResizable(false);
 

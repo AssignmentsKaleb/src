@@ -21,7 +21,7 @@ public class Magic{
             height = 40;
             pic = new ImageIcon("Magic.png");
         }
-
+       
         public boolean coolidesWith(Characters c){
             return this.x < c.getX() + c.getW() &&
                 this.x + this.width > c.getX() &&

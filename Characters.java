@@ -3,7 +3,7 @@ import java.awt.Graphics;
 public class Characters {
     
 private static int x;
-private int y;
+public int y;
 private int w;
 private int h;
 private int mana, health, speed, damage;
@@ -61,10 +61,9 @@ public void drawChar(Graphics g2d){
     }
 
 
-    public int getH() {
+    public int getHeight1() {
         return h;
     }
-
 
     public void setH(int h) {
         this.h = h;
